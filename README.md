@@ -11,7 +11,7 @@ This repository includes the official implemetation of [**VDR: Retrieval-based D
     <img src="examples/images/vdr-cover.png" width="80%" height="80%">
 </div>
 
-Additionally, I am hosting an open-source repository under `github.com/jzhoubu/vsearch`, which focuses on retrieval with new functionality for retrieval-augmented LLMs and will be maintained long-term. This repository emphasizes reproducing results from the VDR paper and exploring multimodal topics.
+Additionally, I am hosting an open-source repository [**vsearch**](github.com/jzhoubu/vsearch), which focuses on retrieval with new functionality for retrieval-augmented LLMs and will be maintained long-term. This repository emphasizes reproducing results from the VDR paper and exploring multimodal topics.
 
 ## 🗺 Overview
 
@@ -147,6 +147,8 @@ vdr = vdr.to("cuda")
 
 ### Visualize Disentangled Representation
 
+Shows how each token in the vocabulary is reflected by the data representation. A higher value indicates greater importance of the token in relation to the data.
+
 ```python
 dst_result = vdr.encoder_q.dst(query, topk=768, visual=True) # Display a word cloud for visualization if `visual`=True
 print(dst_result)
@@ -168,6 +170,8 @@ print(dst_result)
 
 
 ### Reasoning Retrieval Result
+
+Display how each token in the vocabulary contributes to the relevance between the query and passage. The higher the value, the more important the token is to the query-passage relevance.
 
 ```python
 reasons = vdr.explain(q=query, p=passages[0], topk=768, visual=True)
