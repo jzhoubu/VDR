@@ -81,12 +81,12 @@ passages = [
 ]
 
 # Initialize the retriever
-vdr = Retriever.from_pretrained("vsearch/vdr-nq")
-vdr = vdr.to("cuda")
+vdr_nq = Retriever.from_pretrained("vsearch/vdr-nq")
+vdr_nq = vdr_nq.to("cuda")
 
 # Embed the query and passages
-q_emb = vdr.encoder_q.embed(query)  # Shape: [1, V]
-p_emb = vdr.encoder_p.embed(passages)  # Shape: [4, V]
+q_emb = vdr_nq.encoder_q.embed(query)  # Shape: [1, V]
+p_emb = vdr_nq.encoder_p.embed(passages)  # Shape: [4, V]
 
  # Query-passage Relevance
 scores = q_emb @ p_emb.t()
@@ -107,16 +107,16 @@ from src.ir import Retriever
 query = "Curiosity was launched to explore Mars"
 images = [
     "./examples/images/mars.png"
-    "./examples/images/mars.moto"
+    "./examples/images/moto.png"
 ]
 
 # Initialize the retriever
-vdr = Retriever.from_pretrained("vsearch/vdr-cross-modal")
-vdr = vdr.to("cuda")
+vdr_cm = Retriever.from_pretrained("vsearch/vdr-cross-modal")
+vdr_cm = vdr_cm.to("cuda")
 
 # Embed the query and passages
-q_emb = vdr.encoder_q.embed(query)  # q for text; shape: [1, V]
-p_emb = vdr.encoder_p.embed(images)  # p for image; shape: [4, V]
+q_emb = vdr_cm.encoder_q.embed(query)  # q for text; shape: [1, V]
+p_emb = vdr_cm.encoder_p.embed(images)  # p for image; shape: [4, V]
 
 # Query-passage Relevance
 scores = q_emb @ p_emb.t()
@@ -141,8 +141,8 @@ passages = [
 ]
 
 # Initialize the retriever
-vdr = Retriever.from_pretrained("vsearch/vdr-nq")
-vdr = vdr.to("cuda")
+vdr_nq = Retriever.from_pretrained("vsearch/vdr-nq")
+vdr_nq = vdr_nq.to("cuda")
 ```
 
 ### Visualize Disentangled Representation
@@ -150,7 +150,7 @@ vdr = vdr.to("cuda")
 Shows how each token in the vocabulary is reflected by the data representation. A higher value indicates greater importance of the token in relation to the data.
 
 ```python
-dst_result = vdr.encoder_q.dst(query, topk=768, visual=True) # Display a word cloud for visualization if `visual`=True
+dst_result = vdr_nq.encoder_q.dst(query, topk=768, visual=True) # Display a word cloud for visualization if `visual`=True
 print(dst_result)
 
 # Output: 
@@ -174,7 +174,7 @@ print(dst_result)
 Display how each token in the vocabulary contributes to the relevance between the query and passage. The higher the value, the more important the token is to the query-passage relevance.
 
 ```python
-reasons = vdr.explain(q=query, p=passages[0], topk=768, visual=True)
+reasons = vdr_nq.explain(q=query, p=passages[0], topk=768, visual=True)
 print(reasons)
 
 # Output: 
