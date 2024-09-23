@@ -11,7 +11,7 @@ This repository includes the official implemetation of [**VDR: Retrieval-based D
     <img src="examples/images/vdr-cover.png" width="80%" height="80%">
 </div>
 
-> Additionally, I am hosting an open-source repository, jzhoubu/vsearch, which focuses on retrieval with new functionality for retrieval-augmented LLMs and will be maintained long-term. This repository emphasizes reproducing results from the VDR paper and exploring multimodal topics.
+Additionally, I am hosting an open-source repository under `github.com/jzhoubu/vsearch`, which focuses on retrieval with new functionality for retrieval-augmented LLMs and will be maintained long-term. This repository emphasizes reproducing results from the VDR paper and exploring multimodal topics.
 
 ## 🗺 Overview
 
@@ -130,8 +130,6 @@ print(scores)
 
 ##  Disentanglement and Reasoning
 
-- Use VDR to disentangle multimodal data and analyze its key components based on their representations.
-
 ```python
 import torch
 from src.ir import Retriever
@@ -146,8 +144,12 @@ passages = [
 # Initialize the retriever
 vdr = Retriever.from_pretrained("vsearch/vdr-nq")
 vdr = vdr.to("cuda")
+```
 
-# Disentangling query embedding
+**Visualize Disentangled Representation**
+
+```python
+# Visualize Disentangled Representation
 dst_result = vdr.encoder_q.dst(query, topk=768, visual=True) # Display a word cloud for visualization if `visual`=True
 print(dst_result)
 
@@ -161,8 +163,13 @@ print(dst_result)
 # }
 ```
 
+<p align="center">
+  <img src="examples/images/dst_wordcloud1.png" alt="Visualize Disentangled Representation"  width="60%">
+</p>
 
-- Use VDR to perform reasoning and analyze each token's contribution to the retrieval results.
+
+
+**Reasoning Retrieval Result**
 
 ```python
 # Retrieval reasoning
@@ -177,6 +184,11 @@ print(reasons)
 #     ...
 # }
 ```
+
+<p align="center">
+  <img src="examples/images/dst_wordcloud2.png" alt="Reasoning Retrieval Result" width="60%">
+</p>
+
 
 
 
