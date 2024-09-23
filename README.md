@@ -26,7 +26,6 @@ Additionally, I am hosting an open-source repository under `github.com/jzhoubu/v
 
 3. [Training](#-training)
 
-
 ## 💻 Preparation
 
 ### Setup Environment via Poetry
@@ -146,10 +145,9 @@ vdr = Retriever.from_pretrained("vsearch/vdr-nq")
 vdr = vdr.to("cuda")
 ```
 
-**Visualize Disentangled Representation**
+### Visualize Disentangled Representation
 
 ```python
-# Visualize Disentangled Representation
 dst_result = vdr.encoder_q.dst(query, topk=768, visual=True) # Display a word cloud for visualization if `visual`=True
 print(dst_result)
 
@@ -164,15 +162,14 @@ print(dst_result)
 ```
 
 <p align="center">
-  <img src="examples/images/dst_wordcloud1.png" alt="Visualize Disentangled Representation"  width="60%">
+  <img src="examples/images/dst_wordcloud1.png" alt="Visualize Disentangled Representation"  width="40%">
 </p>
 
 
 
-**Reasoning Retrieval Result**
+### Reasoning Retrieval Result
 
 ```python
-# Retrieval reasoning
 reasons = vdr.explain(q=query, p=passages[0], topk=768, visual=True)
 print(reasons)
 
@@ -186,7 +183,7 @@ print(reasons)
 ```
 
 <p align="center">
-  <img src="examples/images/dst_wordcloud2.png" alt="Reasoning Retrieval Result" width="60%">
+  <img src="examples/images/dst_wordcloud2.png" alt="Reasoning Retrieval Result" width="40%">
 </p>
 
 
